@@ -48,8 +48,8 @@
             {
 
                 const parentNode = document.getElementById('listOfUsers') ;
-                const ChildNode = `<li  id= ${user.email}> ${user.name} - ${user.email}  -  ${user.phnnumber}     
-                    <button onclick= deleteUser('${user.email}')> Delete </button> <button onclick =EditUser('${user.email}') ,'${user.name}','${user.phnnumber}'>Edit </button></li>`
+                const ChildNode = `<li  id= ${user._id}> ${user.name} - ${user.email}  -  ${user.phnnumber}     
+                    <button onclick= deleteUser('${user._id}')> Delete </button> <button onclick =EditUser('${user._id}') ,'${user.name}','${user.phnnumber}'>Edit </button></li>`
                 parentNode.innerHTML = parentNode.innerHTML + ChildNode ;
             }
             
@@ -68,18 +68,29 @@
                 })
 
             })
+           
+
+             
 
 
-               function deleteUser(emailId)
+               function deleteUser(userId)
                {
-                localStorage.removeItem(emailId) ;
-                removeuserfromScreen(emailId) ;
+                 axios.delete(`https://crudcrud.com/api/d995bf511da2483096b34d178710c94b/appointmentapp/${userId}`)
+                 .then((response) =>{
+                    removeuserfromScreen(userId)
+                 })
+                 .catch((err) =>{
+                    console.log(err)
+                 })
+
+                //localStorage.removeItem(emailId) ;
+                //removeuserfromScreen(emailId) ;
                }
 
-               function removeuserfromScreen(emailId)
+               function removeuserfromScreen(userId)
                {
                 const parentNode = document.getElementById('listOfUsers') ;
-                const ChildNodetoremove = document.getElementById(emailId) ;
+                const ChildNodetoremove = document.getElementById(userId) ;
                 parentNode.removeChild(ChildNodetoremove);
                }
                 function EditUser(emailId , name ,phnnumber)
@@ -88,7 +99,7 @@
                   document.getElementById('username').value = name ;
                   document.getElementById('phonenumber').value = phnnumber ;
 
-                  deleteUser(emailId) ;
+                  deleteUser(userId) ;
 
                 }
 
