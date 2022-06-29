@@ -29,7 +29,7 @@
                     phnnumber
 
                 }
-                axios.post("https://crudcrud.com/api/d995bf511da2483096b34d178710c94b/appointmentapp" , obj)
+                axios.post("https://crudcrud.com/api/2b0061f221154a7faa58c4e2f5b05d1e/appointmentapp" , obj)
                 .then((response) =>{
                     ShowNewUserOnScreen(response.data)
                     console.log(response)
@@ -49,12 +49,12 @@
 
                 const parentNode = document.getElementById('listOfUsers') ;
                 const ChildNode = `<li  id= ${user._id}> ${user.name} - ${user.email}  -  ${user.phnnumber}     
-                    <button onclick= deleteUser('${user._id}')> Delete </button> <button onclick =EditUser('${user._id}') ,'${user.name}','${user.phnnumber}'>Edit </button></li>`
+                    <button onclick= deleteUser('${user._id}')> Delete </button> <button onclick =EditUser('${user.email}'),'${user.name}','${user.phnnumber}','${user._id}'>Edit </button></li>`
                 parentNode.innerHTML = parentNode.innerHTML + ChildNode ;
             }
             
             window.addEventListener("DOMContentLoaded" ,() =>{
-                axios.get("https://crudcrud.com/api/d995bf511da2483096b34d178710c94b/appointmentapp")
+                axios.get("https://crudcrud.com/api/2b0061f221154a7faa58c4e2f5b05d1e/appointmentapp")
                 .then((respose) => {
                     console.log(respose)
 
@@ -75,7 +75,7 @@
 
                function deleteUser(userId)
                {
-                 axios.delete(`https://crudcrud.com/api/d995bf511da2483096b34d178710c94b/appointmentapp/${userId}`)
+                 axios.delete(`https://crudcrud.com/api/2b0061f221154a7faa58c4e2f5b05d1e/appointmentapp/${userId}`)
                  .then((response) =>{
                     removeuserfromScreen(userId)
                  })
@@ -93,11 +93,13 @@
                 const ChildNodetoremove = document.getElementById(userId) ;
                 parentNode.removeChild(ChildNodetoremove);
                }
-                function EditUser(emailId , name ,phnnumber)
+                function EditUser(emailId,name,phnnumber,userId)
                 {
-                  document.getElementById('email').value = emailId ;
-                  document.getElementById('username').value = name ;
-                  document.getElementById('phonenumber').value = phnnumber ;
+               
+                
+                    document.getElementById('email').value = emailId ;
+                    document.getElementById('username').value = name ;
+                    document.getElementById('phonenumber').value = phnnumber ;
 
                   deleteUser(userId) ;
 
