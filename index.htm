@@ -43,6 +43,7 @@
                 //localStorage.setItem(obj.email ,JSON.stringify(obj))
                 //ShowNewUserOnScreen(obj) 
             }
+            
             function ShowNewUserOnScreen(user)
             {
 
@@ -51,6 +52,23 @@
                     <button onclick= deleteUser('${user.email}')> Delete </button> <button onclick =EditUser('${user.email}') ,'${user.name}','${user.phnnumber}'>Edit </button></li>`
                 parentNode.innerHTML = parentNode.innerHTML + ChildNode ;
             }
+            
+            window.addEventListener("DOMContentLoaded" ,() =>{
+                axios.get("https://crudcrud.com/api/d995bf511da2483096b34d178710c94b/appointmentapp")
+                .then((respose) => {
+                    console.log(respose)
+
+                    for(var i=0; i<respose.data.length ; i++)
+                    {
+                        ShowNewUserOnScreen(respose.data[i]); 
+                    }
+                })
+                .catch((error)=>{
+                    console.log(error);
+                })
+
+            })
+
 
                function deleteUser(emailId)
                {
